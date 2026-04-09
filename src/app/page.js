@@ -1,28 +1,27 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/Button";
-import { useContext } from "react";
-import { H3 } from "@/components/typography/H3";
-import { QuotesContext } from "@/app/QuotesContext";
+import { quotes as initialQuotes } from '@/quotes';
+import { Button } from '@/components/Button';
+import { useState } from 'react';
+import {H3} from '@/components/typography/H3';
 
 export default function Home() {
-  const { quotes, quoteIndex, handleQuoteIndexUpdate, handleLikeQuote } =
-    useContext(QuotesContext);
-  const { quote, author, likedBy } = quotes[quoteIndex];
+  const [quoteIndex, setQuoteIndex] = useState(0);
+  const { quote, author } = initialQuotes[quoteIndex];
+
+  function handleClick() {
+    setQuoteIndex(quoteIndex + 1);
+  }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-slate-200">
-      <section className="bg-slate-50/50 rounded-md p-10 flex flex-col">
-        <div>
-          <Button variant={"icon"} onClick={handleLikeQuote}> ❤️ {likedBy ?? 0}</Button>
-        </div>
-        <H3 element="p">{quote}</H3>
-        <span className="text-md font-semibold text-slate-900 self-end">
-          {" "}
+    <main className='min-h-screen flex items-center justify-center bg-slate-200'>
+      <section className='bg-slate-50/50 rounded-md p-10 flex flex-col'>
+        <H3 element='p'>{quote}</H3>
+        <span className='text-md font-semibold text-slate-900 self-end '>
           - {author}
         </span>
-        <div className="mt-6 flex flex-col">
-          <Button variant={"primary"} onClick={handleClick}>
+        <div className='mt-6 flex flex-col'>
+          <Button variant={'primary'} onClick={handleClick}>
             Next Quote
           </Button>
         </div>

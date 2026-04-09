@@ -1,5 +1,5 @@
 export function Button({ variant, onClick, children }) {
-  let buttonStyles = "";
+  let buttonStyles ='';
 
   switch (variant) {
     case "primary":
@@ -7,9 +7,6 @@ export function Button({ variant, onClick, children }) {
       break;
     case "secondary":
       buttonStyles = "bg-slate-200/90 text-slate-800 rounded-md";
-      break;
-    case "icon":
-      buttonStyles = "hover:bg-slate-200/90 rounded-full";
       break;
     default:
       buttonStyles = "bg-slate-400/90 text-slate-900 rounded-md";

@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Random Quotes App",
-  description: "Random Quotes Application By NBasakA",
+  title: "Random Quotes Application",
+  description: "Random Quotes Application 130625",
 };
 
 export default function RootLayout({ children }) {
