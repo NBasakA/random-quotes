@@ -1,21 +1,13 @@
 "use client";
 
-import { quotes as initialQuotes, quotes } from "@/quotes";
 import { Button } from "@/components/Button";
-import { useState } from "react";
+import { useContext } from "react";
 import { H3 } from "@/components/typography/H3";
-import { getRandomNumber } from "@/utils/helper-functions";
-import { imageConfigDefault } from "next/dist/shared/lib/image-config";
+import { QuotesContext } from "./QuotesContext";
 
 export default function Home() {
-  const [quoteIndex, setQuoteIndex] = useState(0);
-  const { quote, author } = initialQuotes[quoteIndex];
-
-  // updated the handleClick function for to get random results.
-  function handleClick() {
-    const nextIndex = getRandomNumber(0, quotes.length - 1);
-    setQuoteIndex(nextIndex);
-  }
+  const {quotes,quoteIndex,handleClick,handleLikeClick} = useContext(QuotesContext);
+  const { quote, author ,likedQuotes} = quotes[quoteIndex];
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-slate-200">
@@ -31,7 +23,7 @@ export default function Home() {
             </Button>
           </div>
           <div className="absolute right-0">
-            <Button variant={"icon"}>❤️</Button>
+            <Button variant={"icon"} onClick={handleLikeClick}>❤️ {likedQuotes ?? 0}</Button>
           </div>
         </div>
       </section>

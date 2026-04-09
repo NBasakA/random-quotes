@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { QuotesContextProvider } from "@/app/QuotesContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +23,11 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <QuotesContextProvider>
+        <body className="min-h-full" suppressHydrationWarning={true}>
+          {children}
+        </body>
+      </QuotesContextProvider>
     </html>
   );
 }
