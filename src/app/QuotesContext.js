@@ -30,6 +30,7 @@ export function QuotesContextProvider({ children }) {
   return (<QuotesContext value={{quotes, quoteIndex, handleClick, handleLikeClick}}>{children}</QuotesContext>);
 }
 
+
 function handleLikeClick() {
   setQuotes((prevQuotes) => {
     return prevQuotes.map(quote => {
