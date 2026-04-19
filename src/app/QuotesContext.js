@@ -4,7 +4,7 @@ import { createContext, useState } from "react";
 import { quotes as initialQuotes } from "@/quotes";
 import { getRandomNumber } from "@/utils/helper-functions";
 
-export const QuotesContext = createContext({});
+export const QuotesContext = createContext(null);
 
 export function QuotesContextProvider({ children }) {
   const [quoteIndex, setQuoteIndex] = useState(0);
@@ -17,7 +17,6 @@ export function QuotesContextProvider({ children }) {
   }
 
   function handleLikeClick() {
-    console.log(handleLikeClick);
     const likeClick = quotes.map((quote, id) => {
       if (id === quoteIndex) {
         const updatedLikeClick =
@@ -29,4 +28,17 @@ export function QuotesContextProvider({ children }) {
     setQuotes(likeClick);
   }
   return (<QuotesContext value={{quotes, quoteIndex, handleClick, handleLikeClick}}>{children}</QuotesContext>);
+}
+
+function handleLikeClick() {
+  setQuotes((prevQuotes) => {
+    return prevQuotes.map(quote => {
+      if (index===quoteIndex) {
+        return {
+          ...quote,
+          likedQuotes: (typeof quote.likedQuotes?? 0) + 1
+        };
+      } return quote;
+    });
+  })
 }
