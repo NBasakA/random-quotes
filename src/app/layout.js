@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { QuotesContextProvider } from "@/app/QuotesContext";
 import Link from "next/link";
+import Navbar from '@/app/Navbar';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,23 +23,13 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <nav>
-        <ul>
-          <li>
-            <Link href='/'>Home</Link>
-          </li>
-          <li>
-            <Link href='/user/quotes/liked'>❤️</Link>
-          </li>
-        </ul>
-      </nav>
-      <QuotesContextProvider>
-        <body className="min-h-full" suppressHydrationWarning={true}>
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <body className="min-h-full" suppressHydrationWarning={true}>
+        <QuotesContextProvider>
+          <Navbar />
           {children}
-        </body>
-      </QuotesContextProvider>
+        </QuotesContextProvider>
+      </body>
     </html>
   );
 }
