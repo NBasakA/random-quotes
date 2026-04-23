@@ -1,32 +1,50 @@
 "use client";
 
-import { createContext, use, useState } from "react";
+import { createContext, useState , useMemo} from "react";
 import { quotes as initialQuotes } from "@/quotes";
 import { getRandomNumber } from "@/utils/helper-functions";
 
-export const QuotesContext = createContext({});
+export const QuotesContext = createContext(null);
 
 export function QuotesContextProvider({ children }) {
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [quotes, setQuotes] = useState(initialQuotes);
 
-  function handleClick() {
-    console.log(handleClick);
-    const nextIndex = getRandomNumber(0, quotes.length - 1);
-    setQuoteIndex(nextIndex);
-  }
+function handleClick() {
+  const nextIndex = getRandomNumber(0, quotes.length - 1);
+  setQuoteIndex(nextIndex);
+}
 
-  function handleLikeClick() {
-    console.log(handleLikeClick);
-    const likeClick = quotes.map((quote, id) => {
-      if (id === quoteIndex) {
-        const updatedLikeClick =
-          typeof quote.likedQuotes === "number" ? quote.likedQuotes + 1 : 1;
-        return { ...quote, likedQuotes: updatedLikeClick };
+function handleLikeClick() {
+  setQuotes((prevQuotes) =>
+    prevQuotes.map((quote, index) => {
+      if (index === quoteIndex) {
+        return {
+          ...quote,
+          likedQuotes: (quote.likedQuotes ?? 0) + 1,
+        };
       }
       return quote;
-    });
-    setQuotes(likeClick);
-  }
-  return (<QuotesContext value={{quotes, quoteIndex, handleClick, handleLikeClick}}>{children}</QuotesContext>);
+    })
+  );
 }
+
+const likedQuotesList = useMemo(() => {
+  return quotes.filter((quote) => quote.likedQuotes > 0);
+}, [quotes]);
+
+const value = {
+  quotes,
+  quoteIndex,
+  handleClick,
+  handleLikeClick,
+likedQuotesList,
+currentQuote:quotes[quoteIndex]
+};
+
+return (
+  <QuotesContext.Provider value={value}>
+    {children}
+  </QuotesContext.Provider>
+);
+  }
