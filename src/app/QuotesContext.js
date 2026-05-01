@@ -29,17 +29,33 @@ function handleLikeClick() {
   );
 }
 
+// I searched and found 'useMemo'. Is is the right way to do or is there any better way?
 const likedQuotesList = useMemo(() => {
   return quotes.filter((quote) => quote.likedQuotes > 0);
 }, [quotes]);
+
+
+function handleUnlikeClick(quoteToUnlike) {
+  setQuotes((prevQuotes) =>
+    prevQuotes.map((quote) => {
+      if (quote.quote === quoteToUnlike.quote && quote.author === quoteToUnlike.author) {
+        return {
+          ...quote,
+          likedQuotes: Math.max(0, (quote.likedQuotes ?? 0) - 1),
+        };
+      }
+      return quote;
+    })
+  );
+}
 
 const value = {
   quotes,
   quoteIndex,
   handleClick,
   handleLikeClick,
-likedQuotesList,
-currentQuote:quotes[quoteIndex]
+  handleUnlikeClick,
+likedQuotesList
 };
 
 return (

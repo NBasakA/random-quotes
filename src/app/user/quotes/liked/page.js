@@ -5,9 +5,10 @@ import { H3 } from '@/components/typography/H3';
 import { useContext } from 'react';
 import { QuotesContext } from '@/app/QuotesContext';
 import Link from 'next/link';
+import { Button } from '@/components/Button';
 
 export default function LikedQuotesPage () {
-    const { likedQuotesList } = useContext(QuotesContext);
+    const { likedQuotesList, handleUnlikeClick } = useContext(QuotesContext);
     return (
         <main className='min-h-screen pt-24 pb-10 bg-slate-200 flex flex-col items-center'>
       <div className="w-full max-w-2xl px-4">
@@ -26,6 +27,9 @@ export default function LikedQuotesPage () {
                 key={index} 
                 className='bg-slate-50/80 rounded-md p-6 flex flex-col shadow-sm'
               >
+                <div className='flex self-end'>
+                    <Button variant='icon' onClick={() => handleUnlikeClick(item)}>X</Button>
+                  </div>
                 <H3 element='p' className='text-lg italic'>
                   {item.quote}
                 </H3>
@@ -36,6 +40,7 @@ export default function LikedQuotesPage () {
                   <span className='bg-red-100 text-red-600 text-xs font-bold px-2 py-1 rounded-full'>
                     ❤️ {item.likedQuotes}
                   </span>
+                  
                 </div>
               </section>
             ))}
