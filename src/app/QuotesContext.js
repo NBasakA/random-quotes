@@ -10,7 +10,7 @@ export function QuotesContextProvider({ children }) {
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [quotes, setQuotes] = useState(initialQuotes);
 
-function handleClick() {
+function handleNextClick() {
   const nextIndex = getRandomNumber(0, quotes.length - 1);
   setQuoteIndex(nextIndex);
 }
