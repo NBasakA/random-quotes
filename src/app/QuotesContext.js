@@ -37,8 +37,8 @@ const likedQuotesList = quotes
 
 function handleUnlikeClick(quoteToUnlike) {
   setQuotes((prevQuotes) =>
-    prevQuotes.map((quote) => {
-      if (quote.quote === quoteToUnlike.quote && quote.author === quoteToUnlike.author) {
+    prevQuotes.map((quote, index) => {
+      if (index === quoteToUnlike) {
         return {
           ...quote,
           likedQuotes: Math.max(0, (quote.likedQuotes ?? 0) - 1),
