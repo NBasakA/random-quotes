@@ -10,7 +10,7 @@ export function QuotesContextProvider({ children }) {
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [quotes, setQuotes] = useState(initialQuotes);
 
-function handleClick() {
+function handleNextClick() {
   const nextIndex = getRandomNumber(0, quotes.length - 1);
   setQuoteIndex(nextIndex);
 }
@@ -29,17 +29,33 @@ function handleLikeClick() {
   );
 }
 
-const likedQuotesList = useMemo(() => {
-  return quotes.filter((quote) => quote.likedQuotes > 0);
-}, [quotes]);
+// I searched and found 'useMemo'. Is is the right way to do or is there any better way?
+const likedQuotesList = quotes
+  .map((quote, index) => ({ ...quote, index }))
+  .filter((quote) => quote.likedQuotes > 0);
+
+
+function handleUnlikeClick(quoteToUnlike) {
+  setQuotes((prevQuotes) =>
+    prevQuotes.map((quote, index) => {
+      if (index === quoteToUnlike) {
+        return {
+          ...quote,
+          likedQuotes: Math.max(0, (quote.likedQuotes ?? 0) - 1),
+        };
+      }
+      return quote;
+    })
+  );
+}
 
 const value = {
   quotes,
   quoteIndex,
   handleClick,
   handleLikeClick,
-likedQuotesList,
-currentQuote:quotes[quoteIndex]
+  handleUnlikeClick,
+likedQuotesList
 };
 
 return (
