@@ -30,9 +30,9 @@ function handleLikeClick() {
 }
 
 // I searched and found 'useMemo'. Is is the right way to do or is there any better way?
-const likedQuotesList = useMemo(() => {
-  return quotes.filter((quote) => quote.likedQuotes > 0);
-}, [quotes]);
+const likedQuotesList = quotes
+  .map((quote, index) => ({ ...quote, index }))
+  .filter((quote) => quote.likedQuotes > 0);
 
 
 function handleUnlikeClick(quoteToUnlike) {
