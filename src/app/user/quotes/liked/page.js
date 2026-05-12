@@ -22,7 +22,7 @@ export default function LikedQuotesPage () {
           </div>
         ) : (
           <div className='space-y-4'>
-            {likedQuotesList.map((item, index) => (
+            {likedQuotesList.map((item) => (
               <section 
                 key={index} 
                 className='bg-slate-50/80 rounded-md p-6 flex flex-col shadow-sm'
