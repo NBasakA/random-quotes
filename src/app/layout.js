@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { QuotesContextProvider} from "@/contexts/QuotesContextProvider";
+import { UserContextProvider} from "@/contexts/UserContextProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,14 +18,16 @@ export const metadata = {
   description: "Simple application that shows motivational quotes",
 };
 
-export default function RootLayout({children}) {
+export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        {children}
+        <QuotesContextProvider>
+          <UserContextProvider>{children}</UserContextProvider>
+          </QuotesContextProvider>
         <footer className="text-end">© Random Quotes App</footer>
       </body>
     </html>

@@ -1,29 +1,43 @@
 "use client";
 
-import { quotes as initialQuotes } from "@/contexts/quotes";
 import { QuoteText } from "@/components/typography/QuoteText";
 import { Subtitle } from "@/components/typography/Subtitle";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Button } from "@/components/Button";
+import { QuotesContext } from "@/contexts/QuotesContextProvider";
+import { UserContext } from "@/contexts/UserContextProvider";
 
 export default function Home() {
-  const [quotes, setQuotes] = useState([...initialQuotes]);
+  const { quotes, handleLike } = useContext(QuotesContext);
+  const { user, togglelike } = useContext(UserContext);
+
   const [index, setIndex] = useState(0);
 
   function handleClick() {
     console.log("Current index is", index);
     console.log("Incrementing index by 1");
-    setIndex((prevIndex) => (prevIndex + 1)); 
+    setIndex((prevIndex) => prevIndex + 1);
+  }
+
+  function handleLikeClick() {
+    handleLike(index, user.userId);
+    togglelike(index);
   }
 
   return (
     <main className="flex flex-col items-center justify-center grow">
       <div className="text-center bg-zinc-200 p-10 rounded-md">
+        <div className="flex justify-end mb-6 gap-3">
+          <Button title="❤️" onClick={handleLikeClick} />
+          <span>{quotes[index]?.likedBy?.length || 0}</span>
+        </div>
         <div className="pb-6">
-          <QuoteText>{quotes[index].quote}</QuoteText>
+          <QuoteText className="text-zinc-100">{quotes[index].quote}</QuoteText>
           <Subtitle>{quotes[index].author}</Subtitle>
         </div>
-        <Button title='Next Quote' onClick={handleClick} />
+        <div className="flex justify-center">
+          <Button title="Next Quote" onClick={handleClick} />
+        </div>
       </div>
     </main>
   );
