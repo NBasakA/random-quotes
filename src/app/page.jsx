@@ -9,7 +9,7 @@ import { UserContext } from "@/contexts/UserContextProvider";
 
 export default function Home() {
   const { quotes, handleLike } = useContext(QuotesContext);
-  const { user, togglelike } = useContext(UserContext);
+  const { user, toggleLike } = useContext(UserContext);
 
   const [index, setIndex] = useState(0);
 
