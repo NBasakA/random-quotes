@@ -1,6 +1,6 @@
 "use client";
 
-import { quotes as initialQuotes } from "@/quotes";
+import { quotes as initialQuotes } from "@/contexts/quotes";
 import { QuoteText } from "@/components/typography/QuoteText";
 import { Subtitle } from "@/components/typography/Subtitle";
 import { useState } from "react";
