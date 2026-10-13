@@ -21,7 +21,7 @@ export default function Home() {
 
   function handleLikeClick() {
     handleLike(index, user.userId);
-    togglelike(index);
+    toggleLike(index);
   }
 
   return (
