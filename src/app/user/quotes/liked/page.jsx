@@ -12,7 +12,7 @@ import {UserContext} from "@/context/UserContextProvider";
 export default function LikedQuotes () {
     const {quotes, handleLike} = useContext(QuotesContext);
     const { user:{userId}, toggleLike} = useContext(UserContext);
-    const likedQuotes = quotes.filter((quote) => quote.LikedBy.includes(userId));
+    const likedQuotes = quotes.filter((quote) => quote.likedBy.includes(userId));
 
     console.log('liked quotes', likedQuotes);
 
